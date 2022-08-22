@@ -16,3 +16,5 @@ const verifyToken = (req, res, next) => {
     return res.status(401).json("You are not authenticated!");
   }
 };
+
+module.exports = { verifyToken };
