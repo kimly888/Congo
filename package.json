@@ -1,7 +1,7 @@
 {
   "name": "yes",
   "version": "1.0.0",
-  "description": "Online store to buy random products",
+  "description": "Online store for mechanical keyboards",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"
