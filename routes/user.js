@@ -48,6 +48,17 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
+// GET ALL USERS (ADMIN ONLY)
+router.get("/", verifyTokenAndAdmin, async (req, res) => {
+  try {
+    const users = await User.find();
+
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // GET USER (ADMIN ONLY)
 router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
