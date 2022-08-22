@@ -44,7 +44,7 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
-// // GET ALL USERS (ADMIN ONLY)
+// // GET ALL PRODUCTS
 // router.get("/", verifyTokenAndAdmin, async (req, res) => {
 //   const query = req.query.new;
 
@@ -65,18 +65,14 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 //   }
 // });
 
-// // GET USER (ADMIN ONLY)
-// router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
-//   try {
-//     const user = await User.findById(req.params.id);
-
-//     // Hide updated User password
-//     const { password, ...others } = user._doc;
-
-//     res.status(200).json(others);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+// GET PRODUCT
+router.get("/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    res.status(200).json(product);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;
