@@ -53,7 +53,13 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
   try {
     const users = await User.find();
 
-    res.status(200).json(users);
+    // Hide passwords of all Users
+    const filteredUsers = users.map((user) => {
+      const { password, ...others } = user._doc;
+      return others;
+    });
+
+    res.status(200).json(filteredUsers);
   } catch (err) {
     res.status(500).json(err);
   }
