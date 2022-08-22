@@ -1,6 +1,10 @@
 const router = require("express").Router();
 const Cart = require("../models/Cart");
-const { verifyToken, verifyTokenAndAuthorization } = require("./verifyToken");
+const {
+  verifyToken,
+  verifyTokenAndAuthorization,
+  verifyTokenAndAdmin,
+} = require("./verifyToken");
 
 // CREATE CART
 router.post("/", verifyToken, async (req, res) => {
@@ -44,33 +48,16 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
   }
 });
 
-// // GET ALL PRODUCTS
-// router.get("/", async (req, res) => {
-//   const queryNew = req.query.new;
-//   const queryCategory = req.query.category;
+// SHOW ALL USER CARTS (ADMIN ONLY)
+router.get("/", verifyTokenAndAdmin, async (req, res) => {
+  try {
+    const carts = await Cart.find();
 
-//   try {
-//     let products;
-
-//     if (queryNew) {
-//       products = await Product.find().sort({ createdAt: -1 }).limit(5);
-//     } else if (queryCategory) {
-//       // In operator selects products where the category of a field equals any product that has that category in the specified categories array
-//       products = await Product.find({
-//         categories: {
-//           $in: [queryCategory],
-//         },
-//       });
-//     } else {
-//       // Show all products if no query is given
-//       products = await Product.find();
-//     }
-
-//     res.status(200).json(products);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+    res.status(200).json(carts);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 // SHOW USER CART
 router.get("/find/:userId", async (req, res) => {
