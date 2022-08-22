@@ -18,7 +18,7 @@ router.post("/", verifyToken, async (req, res) => {
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
     // Search database for product by id and update
-    const updatedCart = await Cart.findByIdAndUpdate(
+    const cart = await Cart.findByIdAndUpdate(
       req.params.id,
       {
         // Set operator replaces the value of a field to the specified value
@@ -28,7 +28,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
       { new: true }
     );
 
-    res.status(200).json(updatedCart);
+    res.status(200).json(cart);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -72,14 +72,14 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
 //   }
 // });
 
-// // GET PRODUCT
-// router.get("/:id", async (req, res) => {
-//   try {
-//     const product = await Product.findById(req.params.id);
-//     res.status(200).json(product);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+// SHOW USER CART
+router.get("/find/:userId", async (req, res) => {
+  try {
+    const cart = await Cart.findOne({ userId: req.params.userId });
+    res.status(200).json(cart);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;
