@@ -26,4 +26,38 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// LOGIN
+router.post("/login", async (req, res) => {
+  try {
+    // Find user in database using findOne method since each user is unique
+    const user = await User.findOne({ username: req.body.username });
+
+    // !user && res.status(401).json("User does not exist!");
+
+    // Decrypt user password
+    const hashedPassword = CryptoJS.AES.decrypt(
+      user.password,
+      process.env.PASS_SECRET
+    );
+
+    // Stringify decrypted password
+    const password = hashedPassword.toString(CryptoJS.enc.Utf8);
+
+    // password !== req.body.password && res.status(401).json("Wrong password!");
+    
+    // BUG
+    if (!user) {
+      // Send an error if user does not exist
+      res.status(401).json("User does not exist!");
+    } else if (req.body.password !== password) {
+      // Send error for wrong passwords
+      res.status(401).json("Wrong password!");
+    } else {
+      res.status(200).json(user);
+    }
+  } catch (err) {
+    res.status(500).json("User does not exist");
+  }
+});
+
 module.exports = router;
