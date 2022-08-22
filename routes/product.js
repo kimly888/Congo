@@ -44,26 +44,20 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
-// // GET ALL PRODUCTS
-// router.get("/", verifyTokenAndAdmin, async (req, res) => {
-//   const query = req.query.new;
+// GET ALL PRODUCTS
+router.get("/", async (req, res) => {
+  const queryNew = req.query.new;
 
-//   try {
-//     const users = query
-//       ? await User.find().sort({ _id: -1 }).limit(5)
-//       : await User.find();
+  try {
+    const products = queryNew
+      ? await Product.find().sort({ _id: -1 }).limit(5)
+      : await Product.find();
 
-//     // Hide passwords of all Users
-//     const filteredUsers = users.map((user) => {
-//       const { password, ...others } = user._doc;
-//       return others;
-//     });
-
-//     res.status(200).json(filteredUsers);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 // GET PRODUCT
 router.get("/:id", async (req, res) => {
