@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const Cart = require("../models/Cart");
-const { verifyToken } = require("./verifyToken");
+const { verifyToken, verifyTokenAndAuthorization } = require("./verifyToken");
 
 // CREATE CART
 router.post("/", verifyToken, async (req, res) => {
@@ -14,25 +14,25 @@ router.post("/", verifyToken, async (req, res) => {
   }
 });
 
-// // UPDATE USER INFO (ADMIN ONLY)
-// router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
-//   try {
-//     // Search database for product by id and update
-//     const updatedProduct = await Product.findByIdAndUpdate(
-//       req.params.id,
-//       {
-//         // Set operator replaces the value of a field to the specified value
-//         $set: req.body,
-//       },
-//       // New option returns document after update is applied
-//       { new: true }
-//     );
+// ADD TO CART
+router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
+  try {
+    // Search database for product by id and update
+    const updatedCart = await Cart.findByIdAndUpdate(
+      req.params.id,
+      {
+        // Set operator replaces the value of a field to the specified value
+        $set: req.body,
+      },
+      // New option returns document after update is applied
+      { new: true }
+    );
 
-//     res.status(200).json(updatedProduct);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+    res.status(200).json(updatedCart);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 // // DELETE PRODUCT (ADMIN ONLY)
 // router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
