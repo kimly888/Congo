@@ -1,6 +1,10 @@
 const router = require("express").Router();
 const User = require("../models/User");
-const { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } = require("./verifyToken");
+const {
+  verifyToken,
+  verifyTokenAndAuthorization,
+  verifyTokenAndAdmin,
+} = require("./verifyToken");
 
 // UPDATE USER INFO
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
@@ -37,11 +41,25 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
 // DELETE USER
 router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
-    await User.findByIdAndDelete(req.params.id)
-    res.status(200).json("User deleted!")
+    await User.findByIdAndDelete(req.params.id);
+    res.status(200).json("User deleted!");
   } catch (err) {
-    res.status(500).json(err)
+    res.status(500).json(err);
   }
-})
+});
+
+// GET USER (ADMIN ONLY)
+router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    // Hide updated User password
+    const { password, ...others } = user._doc;
+
+    res.status(200).json(others);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;
