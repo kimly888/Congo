@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const CryptoJS = require("crypto-js");
+const jwt = require("jsonwebtoken");
 
 // REGISTER
 router.post("/register", async (req, res) => {
@@ -40,19 +41,30 @@ router.post("/login", async (req, res) => {
 
     // Stringify decrypted password
     const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-    
+
+    // Provide web token
+    const accessToken = jwt.sign(
+      {
+        id: user._id,
+        isAdmin: user.isAdmin,
+      },
+      process.env.JWT_SECRET,
+      // Expiration date of 3 days
+      { expiresIn: "3d" }
+    );
+
     // Hide User password
     const { password, ...others } = user._doc;
 
-    // BUG
     if (!user) {
+      // BUG
       // Send an error if user does not exist
       res.status(401).json("User does not exist!");
     } else if (req.body.password !== originalPassword) {
       // Send error for wrong passwords
       res.status(401).json("Wrong password!");
     } else {
-      res.status(200).json(others);
+      res.status(200).json({ ...others, accessToken });
     }
   } catch (err) {
     res.status(500).json("User does not exist");
