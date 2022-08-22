@@ -48,25 +48,25 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
-// // SHOW ALL USER CARTS (ADMIN ONLY)
-// router.get("/", verifyTokenAndAdmin, async (req, res) => {
-//   try {
-//     const carts = await Cart.find();
+// SHOW ALL USER ORDERS (ADMIN ONLY)
+router.get("/", verifyTokenAndAdmin, async (req, res) => {
+  try {
+    const orders = await Order.find();
 
-//     res.status(200).json(carts);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
-// // SHOW USER CART
-// router.get("/find/:userId", async (req, res) => {
-//   try {
-//     const cart = await Cart.findOne({ userId: req.params.userId });
-//     res.status(200).json(cart);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+// SHOW USER ORDER
+router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
+  try {
+    const order = await Order.find({ userId: req.params.userId });
+    res.status(200).json(order);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;
