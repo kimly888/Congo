@@ -1,2 +1,2 @@
 # Congo
-Online store for mechanical keyboards
+Online store to buy random products
