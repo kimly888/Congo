@@ -32,8 +32,6 @@ router.post("/login", async (req, res) => {
     // Find user in database using findOne method since each user is unique
     const user = await User.findOne({ username: req.body.username });
 
-    // !user && res.status(401).json("User does not exist!");
-
     // Decrypt user password
     const hashedPassword = CryptoJS.AES.decrypt(
       user.password,
@@ -41,19 +39,20 @@ router.post("/login", async (req, res) => {
     );
 
     // Stringify decrypted password
-    const password = hashedPassword.toString(CryptoJS.enc.Utf8);
-
-    // password !== req.body.password && res.status(401).json("Wrong password!");
+    const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
     
+    // Hide User password
+    const { password, ...others } = user._doc;
+
     // BUG
     if (!user) {
       // Send an error if user does not exist
       res.status(401).json("User does not exist!");
-    } else if (req.body.password !== password) {
+    } else if (req.body.password !== originalPassword) {
       // Send error for wrong passwords
       res.status(401).json("Wrong password!");
     } else {
-      res.status(200).json(user);
+      res.status(200).json(others);
     }
   } catch (err) {
     res.status(500).json("User does not exist");
