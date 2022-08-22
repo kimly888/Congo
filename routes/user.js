@@ -25,7 +25,10 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
       { new: true }
     );
 
-    res.status(200).json(updatedUser);
+    // Hide updated User password
+    const { password, ...others } = updatedUser._doc;
+
+    res.status(200).json(others);
   } catch (err) {
     res.status(500).json(err);
   }
