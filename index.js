@@ -17,6 +17,8 @@ mongoose
   });
 
 app.use(express.json());
+app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
 
 app.listen(process.env.PORT || 8080, () => {
   console.log("Congo server is running");
