@@ -24,8 +24,6 @@ function App() {
           <Route path="/api/auth/register" element={<Signup />} />
         </Routes>
       </BrowserRouter>
-      {/* <Login /> */}
-      {/* <Signup/> */}
     </div>
   );
 }
