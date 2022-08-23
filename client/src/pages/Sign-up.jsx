@@ -12,7 +12,7 @@ const Signup = () => {
               alt="Workflow"
             />
             <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-gray-900">
-              Make an account
+              Create an account
             </h2>
           </div>
           <form className="mt-8 space-y-6" action="#" method="POST">

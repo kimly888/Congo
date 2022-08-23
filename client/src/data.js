@@ -123,8 +123,8 @@ export const navigation = {
     },
   ],
   pages: [
-    { name: "Keyboards", href: "#" },
-    { name: "Deskmats", href: "#" },
+    { name: "Keyboards", href: "/api/products" },
+    { name: "Home", href: "/" },
   ],
 };
 
