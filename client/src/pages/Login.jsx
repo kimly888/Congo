@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { LockClosedIcon } from "@heroicons/react/solid";
 
 const Login = () => {
@@ -12,33 +13,36 @@ const Login = () => {
               alt="Workflow"
             />
             <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-gray-900">
-             Sign in to your account
+              Sign in to your account
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
               Or{" "}
-              <a
-                href="#"
+              <Link
+                to="/api/auth/register"
                 className="font-medium text-indigo-600 hover:text-indigo-500"
               >
                 sign up if you don't have an account
-              </a>
+              </Link>
             </p>
           </div>
-          <form className="mt-8 space-y-6" action="" method="POST">
+          <form
+            className="mt-8 space-y-6"
+            action="http://localhost:8080/api/auth/login"
+            method="POST"
+          >
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
-                <label htmlFor="email-address" className="sr-only">
-                  Email address
+                <label htmlFor="user-name" className="sr-only">
+                  Username
                 </label>
                 <input
-                  id="email-address"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
+                  id="user-name"
+                  name="user-name"
+                  type="text"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Email address"
+                  placeholder="Username"
                 />
               </div>
               <div>

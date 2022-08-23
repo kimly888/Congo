@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { LockClosedIcon } from "@heroicons/react/solid";
 
 const Signup = () => {
@@ -15,7 +16,7 @@ const Signup = () => {
               Create an account
             </h2>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
+          <form className="mt-8 space-y-6" action="./api/auth/register" method="POST">
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
