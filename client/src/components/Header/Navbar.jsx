@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Dialog, Tab, Popover, Transition } from "@headlessui/react";
 import {
   MenuIcon,
@@ -10,14 +10,11 @@ import Announcement from "./Announcement";
 import Logo from "./Logo";
 import { navigation } from "../../data";
 
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Navbar = () => {
-  const [open, setOpen] = useState(false);
-
+const Navbar = ({ open, setOpen }) => {
   return (
     <div className="bg-white">
       {/* Mobile menu */}
@@ -389,6 +386,7 @@ const Navbar = () => {
                       className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
                     />
+                    {/* Number of items in cart */}
                     <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
                       0
                     </span>

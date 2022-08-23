@@ -1,16 +1,18 @@
+import { useState } from "react";
 import "./App.css";
-import Navbar from "./components/Header/Navbar";
-import Hero from "./components/Hero";
-import Login from "./components/Login";
-import Signup from "./components/Sign-up";
+import Home from "./pages/Home";
+import Cart from "./pages/Cart";
+import Login from "./pages/Login";
+import Signup from "./pages/Sign-up";
 
 function App() {
+  const [open, setOpen] = useState(false);
   return (
     <div className="home">
-      <Navbar />
-      <Hero />
+      <Home open={open} setOpen={setOpen} />
       {/* <Login /> */}
       {/* <Signup/> */}
+      {/* <Cart /> */}
     </div>
   );
 }
