@@ -3,7 +3,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import "./Styles/Product.css";
 
-const Product = ({ item, test }) => {
+const Product = ({ item }) => {
   return (
     <div className="product-container">
       <img src={item.img} className="product-image" />

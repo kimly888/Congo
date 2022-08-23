@@ -1,7 +1,7 @@
 import { XIcon } from "@heroicons/react/outline";
 import { products } from "../data";
 
-const Cart = ({ open, setOpen }) => {
+const Cart = ({ setOpen }) => {
   return (
     <div>
       <div className="flex h-full flex-col overflow-y-scroll bg-white">
@@ -30,8 +30,8 @@ const Cart = ({ open, setOpen }) => {
                   <li key={product.id} className="flex py-6">
                     <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                       <img
-                        src={product.imageSrc}
-                        alt={product.imageAlt}
+                        src={product.img}
+                        alt={product.desc}
                         className="h-full w-full object-cover object-center"
                       />
                     </div>
@@ -40,9 +40,9 @@ const Cart = ({ open, setOpen }) => {
                       <div>
                         <div className="flex justify-between text-base font-medium text-gray-900">
                           <h3>
-                            <a href={product.href}> {product.name} </a>
+                            <a href={product.href}> {product.title} </a>
                           </h3>
-                          <p className="ml-4">{product.price}</p>
+                          <p className="ml-4">{"$" + `${product.price}`}</p>
                         </div>
                         <p className="mt-1 text-sm text-gray-500">
                           {product.color}
@@ -87,14 +87,15 @@ const Cart = ({ open, setOpen }) => {
           <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
             <p>
               or{" "}
-              <button
+              <a
+                href="../pages/ProductsList.jsx"
                 type="button"
                 className="font-medium text-indigo-600 hover:text-indigo-500"
                 onClick={() => setOpen(false)}
               >
                 Continue Shopping
                 <span aria-hidden="true"> &rarr;</span>
-              </button>
+              </a>
             </p>
           </div>
         </div>

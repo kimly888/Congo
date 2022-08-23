@@ -10,6 +10,14 @@ const Hero = () => {
             It is a long established fact that a reader will be distracted by the
             readable content of a page when looking at its layout.
           </p>
+          <div className="mt-6">
+            <a
+              href="../pages/ProductsList.jsx"
+              className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+            >
+              Start shopping
+            </a>
+          </div>
         </div>
         <div className=" h-80 rounded-lg overflow-hidden sm:opacity-0 lg:opacity-100">
           <img

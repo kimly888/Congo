@@ -12,7 +12,7 @@ function App() {
       <Home open={open} setOpen={setOpen} />
       {/* <Login /> */}
       {/* <Signup/> */}
-      {/* <Cart /> */}
+      <Cart />
     </div>
   );
 }
